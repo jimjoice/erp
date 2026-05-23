@@ -33,6 +33,7 @@ public class CadastrosProfile : Profile
 
         CreateMap<MovimentacaoEstoque, MovimentacaoEstoqueResponseDto>()
             .ForMember(d => d.Tipo,         o => o.MapFrom(s => s.Tipo.ToString()))
-            .ForMember(d => d.MotivoCodigo, o => o.MapFrom(s => s.MotivoCodigo.ToString()));
+            .ForMember(d => d.MotivoCodigo, o => o.MapFrom(s => s.MotivoCodigo.ToString()))
+            .ForMember(d => d.ProdutoNome,  o => o.MapFrom(s => s.Produto != null ? s.Produto.Nome : null));
     }
 }

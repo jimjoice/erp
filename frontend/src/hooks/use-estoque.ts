@@ -11,7 +11,11 @@ import type {
 export function usePosicaoEstoque(filtros: EstoqueFiltros) {
   return useQuery({
     queryKey: ["estoque", "posicao", filtros],
-    queryFn: () => estoqueService.listarPosicao(filtros),
+    queryFn: async () => {
+      const result = await estoqueService.listarPosicao(filtros);
+      console.log("[ESTOQUE] posicao result:", result);
+      return result;
+    },
     placeholderData: (prev) => prev,
   });
 }

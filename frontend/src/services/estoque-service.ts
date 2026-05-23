@@ -13,14 +13,19 @@ import type { PaginatedResponse } from "@/types/api";
 
 export const estoqueService = {
   listarPosicao: async (filtros: EstoqueFiltros): Promise<PaginatedResponse<PosicaoEstoque>> => {
-    const params = new URLSearchParams({
-      page: String(filtros.page),
-      pageSize: String(filtros.pageSize),
-    });
-    if (filtros.search) params.set("search", filtros.search);
-    const { data } = await api.get<PaginatedResponse<PosicaoEstoque>>(`/estoque?${params}`);
-    return data;
-  },
+  const params = new URLSearchParams({
+    page: String(filtros.page),
+    pageSize: String(filtros.pageSize),
+  });
+  if (filtros.search) params.set("search", filtros.search);
+  const { data } = await api.get<any[]>(`/estoque?${params}`);
+  const items = data.map((item) => ({
+    ...item,
+    produtoNome: item.nome ?? item.produtoNome,
+    situacao: item.situacao === 1 ? "normal" : item.situacao === 2 ? "baixo" : "zerado",
+  }));
+  return { items, total: items.length };
+},
 
   obterAlertas: async (): Promise<AlertaEstoqueItem[]> => {
     const { data } = await api.get<AlertaEstoqueItem[]>("/estoque/alertas");

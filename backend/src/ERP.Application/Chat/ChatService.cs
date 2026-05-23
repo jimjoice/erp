@@ -99,6 +99,9 @@ public class ChatService(
             sw.Stop();
         }
 
+        if (string.IsNullOrWhiteSpace(respostaTexto))
+            respostaTexto = "Não foi possível obter resposta do agente. Tente novamente.";
+
         // Constrói e persiste mensagem do agente
         var mensagemAgente = ChatMensagem.Create(sessao.Id, respostaTexto, OrigemMensagem.Agente, criadoPor);
 

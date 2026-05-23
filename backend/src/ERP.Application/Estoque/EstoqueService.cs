@@ -10,7 +10,7 @@ namespace ERP.Application.Estoque;
 public class EstoqueService(
     IRepository<Produto> produtoRepository,
     IRepository<Fornecedor> fornecedorRepository,
-    IRepository<MovimentacaoEstoque> movimentacaoRepository,
+    IMovimentacaoEstoqueRepository movimentacaoRepository,
     IUnitOfWork unitOfWork,
     IMapper mapper) : IEstoqueService
 {
@@ -186,7 +186,7 @@ public class EstoqueService(
         DateTime? dataFim = null,
         CancellationToken ct = default)
     {
-        var (items, total) = await movimentacaoRepository.GetPagedAsync(
+        var (items, total) = await movimentacaoRepository.GetPagedComProdutoAsync(
             page, pageSize,
             filter: m =>
                 (produtoId == null || m.ProdutoId == produtoId) &&
