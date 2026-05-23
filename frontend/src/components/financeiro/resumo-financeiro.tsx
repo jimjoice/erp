@@ -23,6 +23,8 @@ function CardSkeleton() {
 export function ResumoFinanceiro() {
   const { data, isLoading } = useResumoFinanceiro();
 
+console.log("[RESUMO COMPONENT] isLoading:", isLoading, "data:", data);
+
   if (isLoading) {
     return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

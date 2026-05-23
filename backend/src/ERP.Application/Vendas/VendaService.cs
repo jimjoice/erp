@@ -250,8 +250,15 @@ public class VendaService(
         DateTime? dataFim = null,
         CancellationToken ct = default)
     {
-        var (items, total) = await vendaRepository.GetPagedComFiltroAsync(
-            page, pageSize, status, clienteId, funcionarioId, dataInicio, dataFim, ct);
+        var inicioUtc = dataInicio.HasValue
+    ? DateTime.SpecifyKind(dataInicio.Value, DateTimeKind.Utc)
+    : (DateTime?)null;
+var fimUtc = dataFim.HasValue
+    ? DateTime.SpecifyKind(dataFim.Value, DateTimeKind.Utc)
+    : (DateTime?)null;
+
+var (items, total) = await vendaRepository.GetPagedComFiltroAsync(
+    page, pageSize, status, clienteId, funcionarioId, inicioUtc, fimUtc, ct);
 
         return Result<PagedResult<VendaResponseDto>>.Ok(
             PagedResult<VendaResponseDto>.Create(

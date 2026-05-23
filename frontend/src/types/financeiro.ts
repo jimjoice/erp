@@ -23,7 +23,8 @@ export interface ContaReceber {
   descricao: string;
   valor: number;
   valorPago?: number;
-  vencimento: string;
+  dataVencimento: string;
+  vencimento?: string;
   status: StatusConta;
   dataPagamento?: string;
   formaPagamento?: string;
@@ -33,11 +34,12 @@ export interface ContaReceber {
 export interface ContaPagar {
   id: string;
   fornecedorId?: string;
-  fornecedorNome?: string;
+  fornecedorRazaoSocial?: string;
   descricao: string;
   valor: number;
   valorPago?: number;
-  vencimento: string;
+  dataVencimento: string;
+  vencimento?: string;
   status: StatusConta;
   dataPagamento?: string;
   formaPagamento?: string;

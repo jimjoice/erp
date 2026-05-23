@@ -1,7 +1,5 @@
-using ERP.Domain.Common;
-
+﻿using ERP.Domain.Common;
 namespace ERP.Domain.Entities;
-
 public class Funcionario : BaseEntity
 {
     public string Nome { get; private set; } = string.Empty;
@@ -10,9 +8,9 @@ public class Funcionario : BaseEntity
     public decimal Salario { get; private set; }
     public DateTime DataAdmissao { get; private set; }
     public Guid? UsuarioId { get; private set; }
-
+    public string? Telefone { get; private set; }
+    public string? Email { get; private set; }
     private Funcionario() { }
-
     public static Funcionario Create(
         string nome,
         string cpf,
@@ -20,6 +18,8 @@ public class Funcionario : BaseEntity
         decimal salario,
         DateTime dataAdmissao,
         Guid? usuarioId,
+        string? telefone,
+        string? email,
         string criadoPor)
     {
         var funcionario = new Funcionario
@@ -29,24 +29,28 @@ public class Funcionario : BaseEntity
             Cargo = cargo,
             Salario = salario,
             DataAdmissao = dataAdmissao,
-            UsuarioId = usuarioId
+            UsuarioId = usuarioId,
+            Telefone = telefone,
+            Email = email
         };
         funcionario.SetCreated(criadoPor);
         return funcionario;
     }
-
     public void Atualizar(
         string nome,
         string cargo,
         decimal salario,
+        string? telefone,
+        string? email,
         string atualizadoPor)
     {
         Nome = nome;
         Cargo = cargo;
         Salario = salario;
+        Telefone = telefone;
+        Email = email;
         SetUpdated(atualizadoPor);
     }
-
     public void VincularUsuario(Guid usuarioId, string atualizadoPor)
     {
         UsuarioId = usuarioId;

@@ -9,7 +9,11 @@ import type {
 export function useResumoFinanceiro() {
   return useQuery({
     queryKey: ["financeiro", "resumo"],
-    queryFn: () => financeiroService.obterResumo(),
+    queryFn: async () => {
+      const data = await financeiroService.obterResumo();
+      console.log("[RESUMO FINANCEIRO]", data);
+      return data;
+    },
     refetchInterval: 60_000,
   });
 }

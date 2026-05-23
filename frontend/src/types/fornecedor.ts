@@ -1,10 +1,4 @@
-export interface Fornecedor {
-  id: string;
-  razaoSocial: string;
-  nomeFantasia?: string;
-  cnpj: string;
-  email?: string;
-  telefone?: string;
+export interface Endereco {
   cep?: string;
   logradouro?: string;
   numero?: string;
@@ -12,6 +6,16 @@ export interface Fornecedor {
   bairro?: string;
   cidade?: string;
   uf?: string;
+}
+
+export interface Fornecedor {
+  id: string;
+  razaoSocial: string;
+  nomeFantasia?: string;
+  cnpj: string;
+  email?: string;
+  telefone?: string;
+  endereco?: Endereco;
   condicoesPagamento?: string;
   createdAt: string;
   updatedAt: string;

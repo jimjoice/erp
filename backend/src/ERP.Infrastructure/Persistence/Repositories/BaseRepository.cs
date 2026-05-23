@@ -16,7 +16,7 @@ public class BaseRepository<T>(AppDbContext context) : IRepository<T> where T : 
     public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken ct = default)
         => await DbSet.ToListAsync(ct);
 
-    public async Task<IReadOnlyList<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken ct = default)
+    public virtual async Task<IReadOnlyList<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken ct = default)
         => await DbSet.Where(predicate).ToListAsync(ct);
 
     public async Task<T> AddAsync(T entity, CancellationToken ct = default)
@@ -46,7 +46,7 @@ public class BaseRepository<T>(AppDbContext context) : IRepository<T> where T : 
             ? await DbSet.CountAsync(ct)
             : await DbSet.CountAsync(predicate, ct);
 
-    public async Task<(IReadOnlyList<T> Items, int Total)> GetPagedAsync(
+    public virtual async Task<(IReadOnlyList<T> Items, int Total)> GetPagedAsync(
         int page, int pageSize, Expression<Func<T, bool>>? filter = null, CancellationToken ct = default)
     {
         var query = DbSet.AsQueryable();

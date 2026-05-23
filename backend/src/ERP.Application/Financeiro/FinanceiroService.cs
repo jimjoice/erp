@@ -112,8 +112,8 @@ public class FinanceiroService(
         if (dataFim.Date < dataInicio.Date)
             return Result<FluxoCaixaDto>.Fail("Data fim deve ser maior ou igual à data início.");
 
-        var inicio = dataInicio.Date;
-        var fim    = dataFim.Date.AddDays(1); // inclui o dia inteiro de dataFim
+        var inicio = DateTime.SpecifyKind(dataInicio.Date, DateTimeKind.Utc);
+var fim    = DateTime.SpecifyKind(dataFim.Date.AddDays(1), DateTimeKind.Utc);
 
         // Saldo acumulado de todos os lançamentos antes do período
         var anteriores = await lancamentoCaixaRepository.FindAsync(
@@ -214,27 +214,37 @@ public class FinanceiroService(
     }
 
     public async Task<Result<ResumoFinanceiroDto>> ResumoAsync(CancellationToken ct = default)
-    {
-        var hoje   = DateTime.UtcNow.Date;
-        var limite = hoje.AddDays(7);
+{
+    var hoje   = DateTime.UtcNow.Date;
+    var limite = hoje.AddDays(7);
 
-        var todosLancamentos = await lancamentoCaixaRepository.GetAllAsync(ct);
-        var saldoAtual = todosLancamentos.Sum(l =>
-            l.Tipo == TipoLancamentoCaixa.Entrada ? l.Valor : -l.Valor);
+    var todosLancamentos = await lancamentoCaixaRepository.GetAllAsync(ct);
+    var saldoAtual = todosLancamentos.Sum(l =>
+        l.Tipo == TipoLancamentoCaixa.Entrada ? l.Valor : -l.Valor);
 
-        var contasReceber = await contaReceberRepository.FindAsync(
-            cr => (cr.Status == StatusContaReceber.Aberta || cr.Status == StatusContaReceber.Vencida)
-                  && cr.DataVencimento.Date <= limite, ct);
+    var contasReceber = await contaReceberRepository.FindAsync(
+        cr => (cr.Status == StatusContaReceber.Aberta || cr.Status == StatusContaReceber.Vencida)
+              && cr.DataVencimento.Date <= limite, ct);
 
-        var contasPagar = await contaPagarRepository.FindAsync(
-            cp => (cp.Status == StatusContaPagar.Aberta || cp.Status == StatusContaPagar.Vencida)
-                  && cp.DataVencimento.Date <= limite, ct);
+    var contasPagar = await contaPagarRepository.FindAsync(
+        cp => (cp.Status == StatusContaPagar.Aberta || cp.Status == StatusContaPagar.Vencida)
+              && cp.DataVencimento.Date <= limite, ct);
 
-        return Result<ResumoFinanceiroDto>.Ok(new ResumoFinanceiroDto(
-            Math.Round(saldoAtual, 2),
-            Math.Round(contasReceber.Sum(cr => cr.Valor), 2),
-            contasReceber.Count,
-            Math.Round(contasPagar.Sum(cp => cp.Valor), 2),
-            contasPagar.Count));
-    }
+    var contasVencidaReceber = await contaReceberRepository.FindAsync(
+        cr => cr.Status == StatusContaReceber.Vencida, ct);
+
+    var contasVencidaPagar = await contaPagarRepository.FindAsync(
+        cp => cp.Status == StatusContaPagar.Vencida, ct);
+
+    return Result<ResumoFinanceiroDto>.Ok(new ResumoFinanceiroDto(
+        Math.Round(saldoAtual, 2),
+        Math.Round(contasReceber.Sum(cr => cr.Valor), 2),
+        contasReceber.Count,
+        Math.Round(contasPagar.Sum(cp => cp.Valor), 2),
+        contasPagar.Count,
+        Math.Round(contasVencidaReceber.Sum(cr => cr.Valor), 2),
+        contasVencidaReceber.Count,
+        Math.Round(contasVencidaPagar.Sum(cp => cp.Valor), 2),
+        contasVencidaPagar.Count));
+}
 }

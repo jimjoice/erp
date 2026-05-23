@@ -39,7 +39,7 @@ public class FuncionarioService(
         if (await repository.ExistsAsync(f => f.Cpf == cpf, ct))
             return Result<FuncionarioResponseDto>.Conflict($"CPF '{cpf}' já cadastrado.");
 
-        var funcionario = Funcionario.Create(dto.Nome, cpf, dto.Cargo, dto.Salario, dto.DataAdmissao, dto.UsuarioId, criadoPor);
+var funcionario = Funcionario.Create(dto.Nome, cpf, dto.Cargo, dto.Salario, dto.DataAdmissao, dto.UsuarioId, dto.Telefone, dto.Email, criadoPor);
         await repository.AddAsync(funcionario, ct);
         await unitOfWork.SaveChangesAsync(ct);
         return Result<FuncionarioResponseDto>.Created(mapper.Map<FuncionarioResponseDto>(funcionario));
@@ -52,7 +52,7 @@ public class FuncionarioService(
         if (funcionario is null)
             return Result<FuncionarioResponseDto>.NotFound("Funcionário não encontrado.");
 
-        funcionario.Atualizar(dto.Nome, dto.Cargo, dto.Salario, atualizadoPor);
+funcionario.Atualizar(dto.Nome, dto.Cargo, dto.Salario, dto.Telefone, dto.Email, atualizadoPor);
         await repository.UpdateAsync(funcionario, ct);
         await unitOfWork.SaveChangesAsync(ct);
         return Result<FuncionarioResponseDto>.Ok(mapper.Map<FuncionarioResponseDto>(funcionario));

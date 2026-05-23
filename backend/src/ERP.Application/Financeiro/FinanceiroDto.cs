@@ -4,6 +4,18 @@ namespace ERP.Application.Financeiro;
 
 public record BaixarContaDto(DateTime DataPagamento, decimal ValorPago);
 
+public record ContaReceberResponseDto(
+    Guid Id,
+    Guid? VendaId,
+    Guid? ClienteId,
+    string? ClienteNome,
+    string Descricao,
+    decimal Valor,
+    DateTime DataVencimento,
+    DateTime? DataPagamento,
+    string Status,
+    DateTime CreatedAt);
+
 // ── Response ──────────────────────────────────────────────────────────────────
 
 public record ContaPagarResponseDto(
@@ -61,8 +73,12 @@ public record ContasVencendoDto(
     IReadOnlyList<ContaPagarVencendoDto> ContasPagar);
 
 public record ResumoFinanceiroDto(
-    decimal SaldoAtual,
+    decimal SaldoCaixa,
     decimal TotalReceberProximos7Dias,
     int QuantidadeReceberProximos7Dias,
     decimal TotalPagarProximos7Dias,
-    int QuantidadePagarProximos7Dias);
+    int QuantidadePagarProximos7Dias,
+    decimal TotalVencidoReceber,
+    int QuantidadeVencidoReceber,
+    decimal TotalVencidoPagar,
+    int QuantidadeVencidoPagar);

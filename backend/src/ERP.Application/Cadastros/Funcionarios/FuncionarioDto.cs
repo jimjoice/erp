@@ -6,12 +6,16 @@ public record CreateFuncionarioDto(
     string Cargo,
     decimal Salario,
     DateTime DataAdmissao,
+    string? Telefone = null,
+    string? Email = null,
     Guid? UsuarioId = null);
 
 public record UpdateFuncionarioDto(
     string Nome,
     string Cargo,
-    decimal Salario);
+    decimal Salario,
+    string? Telefone = null,
+    string? Email = null);
 
 public record FuncionarioResponseDto(
     Guid Id,
@@ -20,6 +24,8 @@ public record FuncionarioResponseDto(
     string Cargo,
     decimal Salario,
     DateTime DataAdmissao,
+    string? Telefone,
+    string? Email,
     Guid? UsuarioId,
     DateTime CreatedAt,
     DateTime UpdatedAt);

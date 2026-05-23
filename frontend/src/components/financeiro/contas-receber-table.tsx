@@ -16,10 +16,10 @@ import { brl } from "@/lib/formatters";
 import type { ContaReceber } from "@/types/financeiro";
 
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
-  Pendente: { label: "Pendente", className: "bg-amber-100 text-amber-800 border-amber-200" },
-  Pago: { label: "Pago", className: "bg-green-100 text-green-800 border-green-200" },
-  Vencido: { label: "Vencido", className: "bg-red-100 text-red-800 border-red-200" },
-  Cancelado: { label: "Cancelado", className: "bg-gray-100 text-gray-600 border-gray-200" },
+  Aberta:    { label: "Aberta",    className: "bg-amber-100 text-amber-800 border-amber-200" },
+  Paga:      { label: "Paga",      className: "bg-green-100 text-green-800 border-green-200" },
+  Vencida:   { label: "Vencida",   className: "bg-red-100 text-red-800 border-red-200" },
+  Cancelada: { label: "Cancelada", className: "bg-gray-100 text-gray-600 border-gray-200" },
 };
 
 interface Props {
@@ -54,7 +54,7 @@ export function ContasReceberTable({ data, total, page, pageSize, isLoading, onP
     {
       accessorKey: "vencimento",
       header: "Vencimento",
-      cell: ({ row }) => new Date(row.original.vencimento).toLocaleDateString("pt-BR"),
+      cell: ({ row }) => new Date(row.original.dataVencimento ?? row.original.vencimento).toLocaleDateString("pt-BR"),
     },
     {
       accessorKey: "status",
@@ -68,7 +68,7 @@ export function ContasReceberTable({ data, total, page, pageSize, isLoading, onP
       id: "acoes",
       header: "",
       cell: ({ row }) =>
-        row.original.status === "Pendente" || row.original.status === "Vencido" ? (
+        row.original.status === "Aberta" || row.original.status === "Vencida" ? (
           <Button size="sm" variant="outline" className="gap-1.5 text-green-700 border-green-300 hover:bg-green-50" onClick={() => onBaixar(row.original)}>
             <CheckCircle className="h-3.5 w-3.5" />
             Baixar

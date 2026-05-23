@@ -1,12 +1,6 @@
 export type TipoPessoa = "PF" | "PJ";
 
-export interface Cliente {
-  id: string;
-  nome: string;
-  tipoPessoa: TipoPessoa;
-  cpfCnpj: string;
-  email?: string;
-  telefone?: string;
+export interface Endereco {
   cep?: string;
   logradouro?: string;
   numero?: string;
@@ -14,6 +8,16 @@ export interface Cliente {
   bairro?: string;
   cidade?: string;
   uf?: string;
+}
+
+export interface Cliente {
+  id: string;
+  nome: string;
+  tipoPessoa: TipoPessoa;
+  cpfCnpj: string;
+  email?: string;
+  telefone?: string;
+  endereco?: Endereco;
   createdAt: string;
   updatedAt: string;
 }

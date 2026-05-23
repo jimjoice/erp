@@ -15,5 +15,11 @@ public class FinanceiroProfile : Profile
 
         CreateMap<LancamentoCaixa, LancamentoCaixaResponseDto>()
             .ForMember(d => d.Tipo, opt => opt.MapFrom(l => l.Tipo.ToString()));
+
+	CreateMap<ContaReceber, ContaReceberResponseDto>()
+    .ForMember(d => d.ClienteNome,
+               opt => opt.MapFrom(cr => cr.Cliente != null ? cr.Cliente.Nome : null))
+    .ForMember(d => d.Status,
+               opt => opt.MapFrom(cr => cr.Status.ToString()));
     }
 }

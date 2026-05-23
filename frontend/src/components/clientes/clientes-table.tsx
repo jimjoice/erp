@@ -80,9 +80,9 @@ export function ClientesTable({
       id: "cidade",
       header: "Cidade",
       cell: ({ row }) =>
-        row.original.cidade
-          ? `${row.original.cidade}${row.original.uf ? ` / ${row.original.uf}` : ""}`
-          : "—",
+        row.original.endereco?.cidade
+  ? `${row.original.endereco.cidade}${row.original.endereco.uf ? ` / ${row.original.endereco.uf}` : ""}`
+  : "—",
     },
     {
       id: "acoes",

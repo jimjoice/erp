@@ -45,9 +45,13 @@ public class N8nWebhookClient(
 
             response.EnsureSuccessStatusCode();
 
-            var result = await response.Content.ReadFromJsonAsync<N8nResponseItem>(ct)
-    ?? throw new InvalidOperationException("Resposta inválida do n8n: corpo vazio.");
-return result.Item;
+            if (string.IsNullOrWhiteSpace(rawBody))
+                throw new InvalidOperationException("Resposta inválida do n8n: corpo vazio.");
+
+            var result = JsonSerializer.Deserialize<N8nResponseItem>(rawBody)
+                ?? throw new InvalidOperationException("Resposta inválida do n8n: deserialização retornou null.");
+
+            return result.Item;
         }
         catch (Exception ex)
         {

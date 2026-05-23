@@ -16,10 +16,10 @@ import { brl } from "@/lib/formatters";
 import type { ContaPagar } from "@/types/financeiro";
 
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
-  Pendente: { label: "Pendente", className: "bg-amber-100 text-amber-800 border-amber-200" },
-  Pago: { label: "Pago", className: "bg-green-100 text-green-800 border-green-200" },
-  Vencido: { label: "Vencido", className: "bg-red-100 text-red-800 border-red-200" },
-  Cancelado: { label: "Cancelado", className: "bg-gray-100 text-gray-600 border-gray-200" },
+  Aberta:    { label: "Aberta",    className: "bg-amber-100 text-amber-800 border-amber-200" },
+  Paga:      { label: "Paga",      className: "bg-green-100 text-green-800 border-green-200" },
+  Vencida:   { label: "Vencida",   className: "bg-red-100 text-red-800 border-red-200" },
+  Cancelada: { label: "Cancelada", className: "bg-gray-100 text-gray-600 border-gray-200" },
 };
 
 interface Props {
@@ -40,7 +40,7 @@ export function ContasPagarTable({ data, total, page, pageSize, isLoading, onPag
       id: "fornecedor",
       header: "Fornecedor",
       cell: ({ row }) => (
-        <span className="font-medium">{row.original.fornecedorNome ?? "—"}</span>
+        <span className="font-medium">{row.original.fornecedorRazaoSocial ?? "—"}</span>
       ),
     },
     {
@@ -56,7 +56,7 @@ export function ContasPagarTable({ data, total, page, pageSize, isLoading, onPag
     {
       accessorKey: "vencimento",
       header: "Vencimento",
-      cell: ({ row }) => new Date(row.original.vencimento).toLocaleDateString("pt-BR"),
+      cell: ({ row }) => new Date(row.original.dataVencimento ?? row.original.vencimento).toLocaleDateString("pt-BR"),
     },
     {
       accessorKey: "status",
@@ -70,7 +70,7 @@ export function ContasPagarTable({ data, total, page, pageSize, isLoading, onPag
       id: "acoes",
       header: "",
       cell: ({ row }) =>
-        row.original.status === "Pendente" || row.original.status === "Vencido" ? (
+        row.original.status === "Aberta" || row.original.status === "Vencida" ? (
           <Button size="sm" variant="outline" className="gap-1.5 text-blue-700 border-blue-300 hover:bg-blue-50" onClick={() => onBaixar(row.original)}>
             <CheckCircle className="h-3.5 w-3.5" />
             Baixar
