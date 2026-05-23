@@ -10,7 +10,7 @@ public static class ChatEndpoints
     {
         var group = app.MapGroup("/api/v1/chat")
             .WithTags("Chat")
-            .RequireAuthorization("Vendedor");
+            .RequireAuthorization();
 
         group.MapGet("/historico", GetHistorico)
             .WithName("GetChatHistorico")
