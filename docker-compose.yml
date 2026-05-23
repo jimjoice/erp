@@ -1,0 +1,105 @@
+services:
+
+  # ── PostgreSQL 16 ───────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: erp_postgres
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-erp_varejo}
+      POSTGRES_USER:     ${POSTGRES_USER:-erp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD obrigatório}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-erp} -d ${POSTGRES_DB:-erp_varejo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+  # ── Redis ────────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: erp_redis
+    # Para habilitar senha em produção, adicione: --requirepass ${REDIS_PASSWORD}
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+  # ── Backend .NET 10 ──────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: final
+    container_name: erp_backend
+    ports:
+      - "${BACKEND_PORT:-5000}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT:  ${ASPNETCORE_ENVIRONMENT:-Production}
+      ASPNETCORE_HTTP_PORTS:   "8080"
+      DATABASE_URL:            "Host=postgres;Database=${POSTGRES_DB:-erp_varejo};Username=${POSTGRES_USER:-erp};Password=${POSTGRES_PASSWORD}"
+      JWT_SECRET:              ${JWT_SECRET:?JWT_SECRET obrigatório}
+      REDIS_URL:               ${REDIS_URL:-redis://redis:6379}
+      SEFAZ_AMBIENTE:          ${SEFAZ_AMBIENTE:-homologacao}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/api/v1/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+  # ── Frontend Next.js 15 ──────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: runner
+    container_name: erp_frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      NODE_ENV:               production
+      NEXT_PUBLIC_API_URL:    ${NEXT_PUBLIC_API_URL:-http://backend:8080/api/v1}
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - erp_network
+    restart: unless-stopped
+
+# ── Volumes ──────────────────────────────────────────────────────────────────
+volumes:
+  postgres_data:
+    name: erp_postgres_data
+  redis_data:
+    name: erp_redis_data
+
+# ── Rede interna ─────────────────────────────────────────────────────────────
+networks:
+  erp_network:
+    name: erp_network
+    driver: bridge
