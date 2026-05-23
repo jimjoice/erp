@@ -8,7 +8,7 @@ function getAccessToken(): string | null {
   const match = document.cookie
     .split("; ")
     .find((row) => row.startsWith("erp-token="));
-  return match ? match.split("=")[1] : null;
+  return match ? decodeURIComponent(match.split("=")[1]) : null;
 }
 
 function getRefreshToken(): string | null {
@@ -16,11 +16,11 @@ function getRefreshToken(): string | null {
   const match = document.cookie
     .split("; ")
     .find((row) => row.startsWith("erp-refresh-token="));
-  return match ? match.split("=")[1] : null;
+  return match ? decodeURIComponent(match.split("=")[1]) : null;
 }
 
 function setCookie(name: string, value: string) {
-  document.cookie = `${name}=${value};path=/;SameSite=Lax`;
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;SameSite=Lax`;
 }
 
 function clearAuthCookies() {
