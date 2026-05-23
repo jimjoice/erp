@@ -72,13 +72,13 @@ export function ClienteModal({ open, cliente, onClose }: Props) {
               cpfCnpj: cliente.cpfCnpj,
               email: cliente.email ?? "",
               telefone: cliente.telefone ?? "",
-              cep: cliente.cep ?? "",
-              logradouro: cliente.logradouro ?? "",
-              numero: cliente.numero ?? "",
-              complemento: cliente.complemento ?? "",
-              bairro: cliente.bairro ?? "",
-              cidade: cliente.cidade ?? "",
-              uf: cliente.uf ?? "",
+              cep: cliente.endereco?.cep ?? "",
+logradouro: cliente.endereco?.logradouro ?? "",
+numero: cliente.endereco?.numero ?? "",
+complemento: cliente.endereco?.complemento ?? "",
+bairro: cliente.endereco?.bairro ?? "",
+cidade: cliente.endereco?.cidade ?? "",
+uf: cliente.endereco?.uf ?? "",
             }
           : { nome: "", tipoPessoa: "PF", cpfCnpj: "", email: "", telefone: "", cep: "", logradouro: "", numero: "", complemento: "", bairro: "", cidade: "", uf: "" }
       );

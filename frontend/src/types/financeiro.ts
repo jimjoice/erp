@@ -1,4 +1,6 @@
-export type StatusConta = "Pendente" | "Pago" | "Vencido" | "Cancelado";
+export type StatusContaReceber = "Aberta" | "Paga" | "Vencida" | "Cancelada";
+export type StatusContaPagar = "Aberta" | "Paga" | "Vencida" | "Cancelada";
+export type StatusConta = StatusContaReceber | StatusContaPagar;
 
 export interface ResumoFinanceiro {
   saldoCaixa: number;
@@ -25,7 +27,7 @@ export interface ContaReceber {
   valorPago?: number;
   dataVencimento: string;
   vencimento?: string;
-  status: StatusConta;
+  status: StatusContaReceber;
   dataPagamento?: string;
   formaPagamento?: string;
   vendaId?: string;
@@ -40,7 +42,7 @@ export interface ContaPagar {
   valorPago?: number;
   dataVencimento: string;
   vencimento?: string;
-  status: StatusConta;
+  status: StatusContaPagar;
   dataPagamento?: string;
   formaPagamento?: string;
 }

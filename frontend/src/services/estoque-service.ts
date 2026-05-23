@@ -24,7 +24,7 @@ export const estoqueService = {
     produtoNome: item.nome ?? item.produtoNome,
     situacao: item.situacao === 1 ? "normal" : item.situacao === 2 ? "baixo" : "zerado",
   }));
-  return { items, total: items.length };
+return { items, total: items.length, page: 1, pageSize: items.length };
 },
 
   obterAlertas: async (): Promise<AlertaEstoqueItem[]> => {
