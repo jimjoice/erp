@@ -49,18 +49,18 @@ try
     var jwtSecret = builder.Configuration["JWT_SECRET"]
         ?? throw new InvalidOperationException("JWT_SECRET não configurado.");
 	
-	JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-	
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
+            options.MapInboundClaims = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.Zero,
+                RoleClaimType = "role"
             };
 
             options.Events = new JwtBearerEvents
@@ -212,6 +212,7 @@ try
     app.MapEstoque();
     app.MapVendas();
     app.MapFinanceiro();
+    app.MapFuncionarios();
     app.MapChat();
 
     app.MapHealthChecks("/api/v1/health", new HealthCheckOptions

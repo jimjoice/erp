@@ -79,22 +79,23 @@ export function TabelaUltimasVendas() {
                   label: venda.status,
                   variant: "secondary" as BadgeVariant,
                 };
+                const formaPrincipal = venda.pagamentos[0]?.forma ?? "";
                 return (
                   <TableRow key={venda.id}>
                     <TableCell className="font-mono text-xs text-muted-foreground">
                       #{String(venda.numero).padStart(5, "0")}
                     </TableCell>
                     <TableCell className="text-sm max-w-[120px] truncate">
-                      {venda.cliente ?? "Consumidor final"}
+                      {venda.clienteNome ?? "Consumidor final"}
                     </TableCell>
                     <TableCell className="text-sm">
-                      {FORMAS[venda.formaPrincipal] ?? venda.formaPrincipal}
+                      {FORMAS[formaPrincipal] ?? formaPrincipal}
                     </TableCell>
                     <TableCell className="text-right font-medium tabular-nums">
                       {brl(venda.total)}
                     </TableCell>
                     <TableCell className="text-right text-muted-foreground text-sm tabular-nums">
-                      {formatHorario(venda.horario)}
+                      {formatHorario(venda.dataVenda)}
                     </TableCell>
                     <TableCell className="text-right">
                       <Badge variant={status.variant}>{status.label}</Badge>

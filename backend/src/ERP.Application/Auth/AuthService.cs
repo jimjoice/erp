@@ -53,7 +53,7 @@ public class AuthService(IUsuarioRepository usuarioRepo, IConfiguration configur
             var sub   = principal.FindFirst(JwtRegisteredClaimNames.Sub)!.Value;
             var email = principal.FindFirst(JwtRegisteredClaimNames.Email)!.Value;
             var nome  = principal.FindFirst("nome")!.Value;
-            var role  = principal.FindFirst(ClaimTypes.Role)!.Value;
+            var role  = principal.FindFirst("role")!.Value;
 
             var claims = BuildClaims(Guid.Parse(sub), email, nome, role);
 
@@ -80,7 +80,7 @@ public class AuthService(IUsuarioRepository usuarioRepo, IConfiguration configur
         new(JwtRegisteredClaimNames.Email, email),
         new(JwtRegisteredClaimNames.Jti,   Guid.NewGuid().ToString()),
         new("nome",                        nome),
-        new(ClaimTypes.Role,               perfil)
+        new("role",                        perfil)
     ];
 
     private string GerarToken(Claim[] claims, int expiresSeconds)

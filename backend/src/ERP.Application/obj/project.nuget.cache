@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YGIkMV66VPs=",
+  "dgSpecHash": "xtIQCgOppBQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.Application\\ERP.Application.csproj",
+  "projectFilePath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.Application\\ERP.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jim\\.nuget\\packages\\automapper\\16.1.1\\automapper.16.1.1.nupkg.sha512",
     "C:\\Users\\Jim\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",

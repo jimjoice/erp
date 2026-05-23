@@ -7,45 +7,34 @@ export interface DashboardResumo {
 
 export interface FaturamentoDia {
   data: string;
-  label: string;
-  faturamento: number;
+  total: number;
 }
 
 export interface PagamentoPie {
   forma: string;
-  label: string;
-  valor: number;
-  percentual: number;
+  total: number;
 }
 
 export interface UltimaVenda {
   id: string;
   numero: number;
-  cliente: string | null;
-  total: number;
-  formaPrincipal: string;
-  horario: string;
+  clienteNome: string | null;
+  funcionarioNome: string | null;
   status: string;
+  dataVenda: string;
+  subtotal: number;
+  desconto: number;
+  total: number;
+  pagamentos: { id: string; forma: string; valor: number; parcelas: number }[];
 }
 
 export interface AlertaEstoque {
   produtoId: string;
   nome: string;
   sku: string;
+  codigoBarras: string | null;
   estoqueAtual: number;
   estoqueMinimo: number;
-}
-
-export interface ContaVencidaAlerta {
-  id: string;
-  descricao: string;
-  valor: number;
-  vencimento: string;
-  tipo: "Pagar" | "Receber";
-  diasAtraso: number;
-}
-
-export interface DashboardAlertas {
-  estoqueBaixo: AlertaEstoque[];
-  contasVencidas: ContaVencidaAlerta[];
+  unidadeMedida: string;
+  situacao: string;
 }

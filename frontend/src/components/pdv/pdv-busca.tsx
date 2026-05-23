@@ -176,7 +176,7 @@ export const PdvBusca = forwardRef<PdvBuscaRef, object>(function PdvBusca(
           })}
           {resultados.length === 0 && queryTerm.length >= 2 && !isFetching && (
             <p className="px-4 py-3 text-sm text-muted-foreground text-center">
-              Nenhum produto encontrado para "{queryTerm}".
+              Nenhum produto encontrado para &quot;{queryTerm}&quot;.
             </p>
           )}
         </div>

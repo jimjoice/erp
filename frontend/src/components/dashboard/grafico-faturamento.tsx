@@ -20,11 +20,16 @@ import {
 import { useFaturamento7Dias } from "@/hooks/use-dashboard";
 import { brl, brlAxis } from "@/lib/formatters";
 
+function formatarLabel(isoDate: string): string {
+  const [, mes, dia] = isoDate.split("-");
+  return `${dia}/${mes}`;
+}
+
 function CustomTooltip({ active, payload, label }: TooltipProps<number, string>) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-card border rounded-lg px-3 py-2 shadow-md text-sm">
-      <p className="font-medium mb-1">{label}</p>
+      <p className="font-medium mb-1">{formatarLabel(label as string)}</p>
       <p className="text-primary">{brl(payload[0].value ?? 0)}</p>
     </div>
   );
@@ -53,7 +58,8 @@ export function GraficoFaturamento() {
             <BarChart data={data} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-muted" />
               <XAxis
-                dataKey="label"
+                dataKey="data"
+                tickFormatter={formatarLabel}
                 tick={{ fontSize: 12 }}
                 tickLine={false}
                 axisLine={false}
@@ -67,7 +73,7 @@ export function GraficoFaturamento() {
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: "hsl(var(--muted))" }} />
               <Bar
-                dataKey="faturamento"
+                dataKey="total"
                 fill="#6366f1"
                 radius={[4, 4, 0, 0]}
                 maxBarSize={48}

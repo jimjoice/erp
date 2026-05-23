@@ -110,12 +110,12 @@
         },
         "compile": {
           "lib/net9.0/_._": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -168,12 +168,12 @@
         },
         "compile": {
           "lib/net9.0/_._": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -230,12 +230,12 @@
         },
         "compile": {
           "lib/net9.0/_._": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -290,12 +290,12 @@
         },
         "compile": {
           "lib/net9.0/_._": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -416,10 +416,14 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "10.0.8"
         },
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net10.0/Microsoft.EntityFrameworkCore.props": {}
@@ -428,10 +432,14 @@
       "Microsoft.EntityFrameworkCore.Abstractions/10.0.8": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/10.0.8": {
@@ -451,10 +459,14 @@
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
-          "lib/net10.0/_._": {}
+          "lib/net10.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/net10.0/Microsoft.EntityFrameworkCore.Design.props": {}
@@ -466,10 +478,14 @@
           "Microsoft.EntityFrameworkCore": "10.0.8"
         },
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/10.0.0": {
@@ -486,10 +502,14 @@
       "Microsoft.Extensions.DependencyModel/10.0.8": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {}
+          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {}
+          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -633,19 +653,27 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/_._": {}
+          "lib/net6.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Npgsql/10.0.2": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Npgsql.dll": {}
+          "lib/net10.0/Npgsql.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Npgsql.dll": {}
+          "lib/net10.0/Npgsql.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.1": {
@@ -656,10 +684,14 @@
           "Npgsql": "10.0.2"
         },
         "compile": {
-          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
+          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
+          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Serilog/4.3.0": {
@@ -3432,11 +3464,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.API\\ERP.API.csproj",
+      "projectUniqueName": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.API\\ERP.API.csproj",
       "projectName": "ERP.API",
-      "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.API\\ERP.API.csproj",
+      "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.API\\ERP.API.csproj",
       "packagesPath": "C:\\Users\\Jim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.API\\obj\\",
+      "outputPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3458,11 +3490,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.Application\\ERP.Application.csproj": {
-              "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.Application\\ERP.Application.csproj"
+            "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.Application\\ERP.Application.csproj": {
+              "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.Application\\ERP.Application.csproj"
             },
-            "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.Infrastructure\\ERP.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\ErpBase\\backend\\src\\ERP.Infrastructure\\ERP.Infrastructure.csproj"
+            "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.Infrastructure\\ERP.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Jim\\OneDrive\\Documentos\\SmartStepsIA\\reposGit\\erp\\backend\\src\\ERP.Infrastructure\\ERP.Infrastructure.csproj"
             }
           }
         }
