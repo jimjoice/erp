@@ -5,6 +5,7 @@ import { Bot, Send, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useChatHistorico } from "@/hooks/use-chat-historico";
 import { useChatEnviar } from "@/hooks/use-chat-enviar";
+import { ChatChart } from "./ChatChart";
 import type { ChatMensagem } from "@/types/chat";
 
 interface Props {
@@ -134,6 +135,7 @@ export function ChatPanel({ onClose }: Props) {
 
 function MessageBubble({ mensagem }: { mensagem: ChatMensagem }) {
   const isUser = mensagem.origem === "Usuario";
+  const isChart = mensagem.tipo === "chart" && !!mensagem.chartData;
   const time = new Date(mensagem.createdAt).toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit",
@@ -141,16 +143,22 @@ function MessageBubble({ mensagem }: { mensagem: ChatMensagem }) {
 
   return (
     <div className={cn("flex flex-col", isUser ? "items-end" : "items-start")}>
-      <div
-        className={cn(
-          "max-w-[80%] rounded-2xl px-3 py-2 text-sm",
-          isUser
-            ? "rounded-br-sm bg-blue-600 text-white"
-            : "rounded-bl-sm bg-muted text-foreground"
-        )}
-      >
-        <p className="whitespace-pre-wrap break-words">{mensagem.conteudo}</p>
-      </div>
+      {isChart && mensagem.chartData ? (
+        <div className="w-full max-w-[90%] rounded-2xl rounded-bl-sm border bg-white px-4 py-3 shadow-sm">
+          <ChatChart data={mensagem.chartData} />
+        </div>
+      ) : (
+        <div
+          className={cn(
+            "max-w-[80%] rounded-2xl px-3 py-2 text-sm",
+            isUser
+              ? "rounded-br-sm bg-blue-600 text-white"
+              : "rounded-bl-sm bg-muted text-foreground"
+          )}
+        >
+          <p className="whitespace-pre-wrap break-words">{mensagem.conteudo}</p>
+        </div>
+      )}
       <span className="mt-1 text-xs text-muted-foreground">{time}</span>
     </div>
   );

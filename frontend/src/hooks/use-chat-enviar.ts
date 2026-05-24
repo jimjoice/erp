@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { chatService } from "@/services/chat-service";
+import { parseMensagem } from "@/types/chat";
 import type { ChatHistoricoResponse, ChatMensagem } from "@/types/chat";
 
 export function useChatEnviar() {
@@ -23,6 +24,7 @@ export function useChatEnviar() {
           statusEntrega: "Enviada",
           tempoRespostaMs: null,
           createdAt: new Date().toISOString(),
+          tipo: "text",
         };
         qc.setQueryData<ChatHistoricoResponse>(["chat", "historico"], {
           ...prev,
@@ -34,9 +36,10 @@ export function useChatEnviar() {
     },
 
     onSuccess: (agentMsg) => {
+      const parsed = parseMensagem(agentMsg);
       qc.setQueryData<ChatHistoricoResponse>(["chat", "historico"], (current) => {
         if (!current) return current;
-        return { ...current, mensagens: [...current.mensagens, agentMsg] };
+        return { ...current, mensagens: [...current.mensagens, parsed] };
       });
     },
 
